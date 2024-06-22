@@ -4,7 +4,8 @@
 #define NETPROTO_PROTOCOL_NAME "netproto"
 #define NETPROTO_PORT 42042
 
-#include <ctype.h>
+#include <stdint.h>
+
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
