@@ -73,6 +73,9 @@ int main( int argc, char **argv )
 
                         GameClient* client = &session._client[session._numClients];
                         client->_hclient = NBN_GameServer_GetIncomingConnection();
+                        session._numClients++;
+
+                        printf("Connection accepted from client %d\n", session._numClients);
                     }
                     else {
                         NBN_GameServer_RejectIncomingConnectionWithCode( CONNECTION_REFUSED_SERVER_FULL );
@@ -83,7 +86,7 @@ int main( int argc, char **argv )
                 {
                     // TODO handle this
                     NBN_ConnectionHandle client = NBN_GameServer_GetDisconnectedClient();
-                    printf("Client %d disconnected\n");
+                    printf("Client disconnected\n");
                     break;
                 }
 
