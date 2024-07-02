@@ -26,6 +26,7 @@ add_executable( np_testclient
 
 if(WIN32)
 target_link_libraries(netproto_serv wsock32 ws2_32)
+target_link_libraries(np_testclient wsock32 ws2_32)
 endif()
 
 

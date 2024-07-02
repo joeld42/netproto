@@ -42,6 +42,7 @@ int main( int argc, char **argv )
         return 1;
     }
 
+    printf("--- Starting mainloop\n");
     // main loop
     bool error = false;
     while (!error) {
@@ -50,6 +51,9 @@ int main( int argc, char **argv )
 
         while ((ev = NBN_GameServer_Poll()) != NBN_NO_EVENT)
         {
+
+            printf("Ev is %d\n", ev);
+
             if (ev < 0) {
                 printf("GameServer_Poll error? %d\n", ev);
                 error = true;
@@ -58,8 +62,8 @@ int main( int argc, char **argv )
 
             switch (ev) {
                 case NBN_NEW_CONNECTION:
+                    printf("NBN_NEW_CONNECTION\n");
                     if (session._id == ID_INACTIVE) {
-
                         
                         // make sure connection session ID matches our session
                         //NBN_GameServer_ReadIncomingConnectionData(connectionDataBuff);
@@ -84,6 +88,7 @@ int main( int argc, char **argv )
 
                 case NBN_CLIENT_DISCONNECTED:
                 {
+                    printf("NBN_CLIENT_DISCONNECTED\n");
                     // TODO handle this
                     NBN_ConnectionHandle client = NBN_GameServer_GetDisconnectedClient();
                     printf("Client disconnected\n");
@@ -91,9 +96,13 @@ int main( int argc, char **argv )
                 }
 
                 case NBN_CLIENT_MESSAGE_RECEIVED:
+                    printf("NBN_CLIENT_MESSAGE_RECEIVED\n");
                     NBN_MessageInfo msg_info = NBN_GameServer_GetMessageInfo();
                     break;
             }
+
+            int result = NBN_GameServer_SendPackets();
+            printf("SendPackets sent %d\n", result);
         }
 
     }
