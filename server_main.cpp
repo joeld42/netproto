@@ -66,7 +66,10 @@ int main( int argc, char **argv )
                     if (session._id == ID_INACTIVE) {
                         
                         // make sure connection session ID matches our session
-                        //NBN_GameServer_ReadIncomingConnectionData(connectionDataBuff);
+                        NBN_GameServer_ReadIncomingConnectionData(connectionDataBuff);
+
+                        ClientGameInfo* clientInfo = (ClientGameInfo*)connectionDataBuff;
+
 
 
                         // No session yet, use this one
@@ -79,7 +82,8 @@ int main( int argc, char **argv )
                         client->_hclient = NBN_GameServer_GetIncomingConnection();
                         session._numClients++;
 
-                        printf("Connection accepted from client %d\n", session._numClients);
+                        printf("Connection accepted from client %d (id %0x, num_players %d)\n", session._numClients, 
+                            clientInfo->game_id, clientInfo->num_players );
                     }
                     else {
                         NBN_GameServer_RejectIncomingConnectionWithCode( CONNECTION_REFUSED_SERVER_FULL );

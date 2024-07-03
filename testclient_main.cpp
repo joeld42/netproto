@@ -45,13 +45,15 @@ void OnMessageReceived(void)
 int main( int argc, char **argv )
 {
     printf("Testclient...\n");
+    ClientGameInfo clientInfo = { .game_id = 0xf00d, .num_players = 4 };
+    
 
     NBN_UDP_Register(); // Register the UDP driver
 
     if (NBN_GameClient_StartEx( NETPROTO_PROTOCOL_NAME, 
                                 "127.0.0.1", 
                                 NETPROTO_PORT, 
-                                false, NULL, 0) < 0)
+                                false, (uint8_t*) & clientInfo, sizeof(ClientGameInfo)) < 0)
     {
         printf("Failed to start client....\n");
         return 1;

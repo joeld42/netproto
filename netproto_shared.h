@@ -28,6 +28,11 @@ enum ConnectStatus {
     CONNECTION_REFUSED_SERVER_FULL = 100,    
 };
 
+struct ClientGameInfo {
+    uint64_t game_id; 
+    uint8_t num_players;
+};
+
 
 #define NBN_LogInfo(...) Log(LOG_INFO,  __VA_ARGS__)
 #define NBN_LogError(...) Log(LOG_ERROR, __VA_ARGS__)
